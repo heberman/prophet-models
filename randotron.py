@@ -20,7 +20,7 @@ async def randotron():
     eastern_tz = datetime.timezone(eastern_offset)
 
     # Want to buy a random stock every 30 min and choose a random time in the day
-    # to sell it (5 min intervals). 6AM - 1PM = 7 hours * 12 5min intervals per hour = 84.
+    # to sell it (5 min intervals). 10AM - 4PM = 6 hours * 12 5min intervals per hour = 72.
     # if each 5min interval is represented by an index, can trade from 0 to 83,
     # will track with counter
 
@@ -30,7 +30,7 @@ async def randotron():
         day_portfolio = []
         starting_cash = 0
         now = datetime.datetime.now(eastern_tz)
-        while now.weekday() in range(1, 6) and now.hour >= 6 and now.hour < 14:
+        while now.weekday() in range(1, 6) and now.hour >= 10 and now.hour < 16:
             # default user as None, only get user from db if trade is made
             user = None
             # if counter == 0, get user and log starting cash for the day
@@ -59,7 +59,7 @@ async def randotron():
                 random_ticker_price = random_ticker_data['currPrice']
                 buy_shares = (starting_cash / 12) // random_ticker_price
                 user = make_trade(user, random_ticker, buy_shares, random_ticker_price)
-                sell_time = random.randint(counter + 1, 83)
+                sell_time = random.randint(counter + 1, 71)
                 day_portfolio.append(random_ticker, buy_shares, sell_time)
             # update user only is trade is made
             if user is not None:
