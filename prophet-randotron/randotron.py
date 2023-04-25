@@ -67,3 +67,4 @@ async def randotron():
             time.sleep(300)
             counter += 1
             now = datetime.datetime.now(eastern_tz)
+        time.sleep(300)
